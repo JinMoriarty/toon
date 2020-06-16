@@ -1,4 +1,4 @@
-package com.toon.hojin;
+package com.toon.controller;
 
 import java.text.DateFormat;
 import java.util.Date;
