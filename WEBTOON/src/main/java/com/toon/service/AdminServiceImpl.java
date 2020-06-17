@@ -28,11 +28,16 @@ public class AdminServiceImpl implements AdminService {
 		dao.register(vo);		
 	}
 	
-	// 상품목록
+	// 작품 목록
 	@Override
 	public List<ToonVO> toonslist() throws Exception {
 		System.out.println("서비스");
 		return dao.toonslist();
 	}
 	
+	// 작품 조회
+	@Override
+	public ToonVO toonsView(int toonNum) throws Exception {
+		return dao.toonsView(toonNum);
+		}
 }

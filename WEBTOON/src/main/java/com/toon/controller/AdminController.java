@@ -81,4 +81,17 @@ public class AdminController {
 			
 			model.addAttribute("list",list);			
 		}
-	}
+		
+	// 상품 조회
+		@RequestMapping(value = "/toons/view", method = RequestMethod.GET)
+		public void getToonsview(@RequestParam("n") int toonNum, Model model) throws Exception {
+		 logger.info("get toons view");
+		 
+		 ToonVO toons = adminService.toonsView(toonNum);
+		 
+		 model.addAttribute("toons", toons);		
+		 }
+		
+	
+}
+

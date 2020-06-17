@@ -1,11 +1,11 @@
 package com.toon.persistence;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
-
-import java.util.List;
 
 import com.toon.domain.CategoryVO;
 import com.toon.domain.ToonVO;
@@ -38,11 +38,11 @@ public class AdminDAOImpl implements AdminDAO {
 	public List<ToonVO> toonslist() throws Exception {
 		return sql.selectList(namespace + ".toonslist");
 	}
-	/*
+	
 	//작품 조회
 	@Override
-	public ToonVo toonsView() throws Exception{
-		return sql.selectOne(namespace+".toonsView");
-	}*/
+	public ToonVO toonsView(int toonNum) throws Exception{
+		return sql.selectOne(namespace+".toonsView", toonNum);
+	}
 
 } 

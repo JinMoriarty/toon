@@ -25,7 +25,8 @@
 
 	<!-- 작품 조회 -->
 	<select id="toonsView" resultType="com.toon.domain.ToonVO">
-		SELECT toonName, toonGenre,
+		SELECT toonNum, toonName, toonGenre, cateCode,
 		toonFin, toonImg, toonDes, toonDate from tbl_toon
+		where toonNum = #{toonNum}
 	</select>
 </mapper>
