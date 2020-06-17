@@ -19,8 +19,8 @@
 
 	<!-- 작품 목록 -->
 	<select id="toonslist" resultType="com.toon.domain.ToonVO">
-		SELECT toonName, toonGenre,
-		toonFin, toonImg, toonDes, toonDate from tbl_toon
+		SELECT toonNum, toonName, toonGenre,cateCode ,toonFin,toonCash, toonView,toonGood, 
+		toonImg, toonDes, toonDate from tbl_toon
 	</select>
 
 	<!-- 작품 조회 -->

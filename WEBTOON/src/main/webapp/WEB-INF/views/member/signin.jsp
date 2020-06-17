@@ -108,12 +108,12 @@ div#footer_box {
 					<form id="login-form" role="form" method="post" autocomplete="off">
 						<div class="input_area">
 							<label for="userId">ID</label> <input type="email" id="userId"
-								name="userId" required="required" value="Your Email" />
+								name="userId" required="required" value="asd123@naver.com" /> <!-- 여기 수정해야함 -->
 						</div>
 
 						<div class="input_area">
 							<label for="userPass">PW</label> <input type="password"
-								id="userPass" name="userPass" required="required" value="******" />
+								id="userPass" name="userPass" required="required" value="123" /><!-- 여기 수정해야함 -->
 						</div>
 						</br>
 						<button type="submit" id="signin_btn" name="signin_btn">로그인</button>
