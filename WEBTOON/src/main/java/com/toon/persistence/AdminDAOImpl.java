@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.toon.domain.CategoryVO;
 import com.toon.domain.ToonVO;
+import com.toon.domain.ToonsViewVO;
 
 
 @Repository
@@ -39,10 +40,23 @@ public class AdminDAOImpl implements AdminDAO {
 		return sql.selectList(namespace + ".toonslist");
 	}
 	
-	//작품 조회
+	//작품 조회 + 카테고리 조인
 	@Override
-	public ToonVO toonsView(int toonNum) throws Exception{
+	public ToonsViewVO toonsView(int toonNum) throws Exception{
 		return sql.selectOne(namespace+".toonsView", toonNum);
 	}
+	
+	//작품 수정
+	@Override
+	public void toonsModify(ToonVO vo) throws Exception{
+		sql.update(namespace + ".toonsModify", vo);
+	}
+	
+	//작품 삭제
+	@Override
+	public void toonsDelete(int toonNum) throws Exception{
+		sql.delete(namespace+".toonsDelete", toonNum);
+	}
+	
 
 } 

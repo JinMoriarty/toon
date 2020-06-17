@@ -4,7 +4,8 @@ import java.util.List;
 
 import com.toon.domain.CategoryVO;
 import com.toon.domain.ToonVO;
-//import com.toon.domain.ReplyListVO;
+import com.toon.domain.ToonsViewVO;
+
 
 public interface AdminDAO {
 	
@@ -18,5 +19,11 @@ public interface AdminDAO {
 	public List<ToonVO> toonslist() throws Exception;
 	
 	// 작품 조회
-	public ToonVO toonsView(int toonNum) throws Exception;
+	public ToonsViewVO toonsView(int toonNum) throws Exception;
+	
+	//작품 수정
+	public void toonsModify(ToonVO vo) throws Exception;
+	
+	// 작품 삭제
+	public void toonsDelete (int toonNum) throws Exception;
 } 

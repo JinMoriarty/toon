@@ -166,33 +166,47 @@ textarea#gdsDes {
 				<h2>작품 조회</h2>
 
 				<form role="form" method="post" autocomplete="off">
-					
+					<input type="hidden" name="n" value="${toons.toonNum}" />
 					<div>
-					<label>1차 분류</label> 
-					<span class="category1"></span>
-					<label>2차 분류</label> 
-					<span class="category2">${toons.cateCode}</span>
+						<label>1차 분류</label> <span class="category1"></span> <label>2차
+							분류</label> <span class="category2">${toons.cateCode}</span>
 					</div>
-					
+
 
 					<div class="inputArea">
-						<label for="toonName">제목</label>
-						<span>${toons.toonName}</span>
+						<label for="toonName">제목</label> <span>${toons.toonName}</span>
 					</div>
 
 					<div class="inputArea">
-						<label for="toonGenre">장르</label> 
-						<span>${toons.toonGenre}</span>
+						<label for="toonGenre">장르</label> <span>${toons.toonGenre}</span>
 					</div>
 
 					<div class="inputArea">
-						<label for="toonDes">내용</label>
-						<span>${toons.toonDes}</span>
+						<label for="toonDes">내용</label> <span>${toons.toonDes}</span>
 					</div>
 
 					<div class="inputArea">
-						<button type="button" id="register_Btn" class="btn btn-warning">수정</button>
-						<button type="button" id="register_Btn" class="btn btn-danger">삭제</button>
+						<button type="button" id="modify_Btn" class="btn btn-warning">수정</button>
+						<button type="button" id="delete_Btn" class="btn btn-danger">삭제</button>
+
+						<script>
+							var formObj = $("form[role='form']");
+
+							$("#modify_Btn").click(function() {
+								formObj.attr("action", "/admin/toons/modify");
+								formObj.attr("method", "get")
+								formObj.submit();
+							});
+
+							$("#delete_Btn").click(function() {
+								
+								var con = confirm("정말로 삭제하시겠습니까?");
+								if(con) {
+									formObj.attr("action", "/admin/toons/delete");
+									formObj.submit();	
+								}
+							});
+						</script>
 					</div>
 				</form>
 

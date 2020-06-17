@@ -1,37 +1,20 @@
 package com.toon.controller;
 
-import java.io.Console;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.io.PrintWriter;
-import java.util.HashMap;
 import java.util.List;
-import java.util.UUID;
 
-import javax.annotation.Resource;
 import javax.inject.Inject;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.toon.domain.CategoryVO;
-import com.toon.domain.MemberVO;
 import com.toon.domain.ToonVO;
+import com.toon.domain.ToonsViewVO;
 import com.toon.service.AdminService;
 
 import net.sf.json.JSONArray;
@@ -81,17 +64,53 @@ public class AdminController {
 			
 			model.addAttribute("list",list);			
 		}
-		
-	// 상품 조회
+
+	 // 작품 조회
 		@RequestMapping(value = "/toons/view", method = RequestMethod.GET)
 		public void getToonsview(@RequestParam("n") int toonNum, Model model) throws Exception {
 		 logger.info("get toons view");
 		 
-		 ToonVO toons = adminService.toonsView(toonNum);
+		 ToonsViewVO toons = adminService.toonsView(toonNum);
 		 
 		 model.addAttribute("toons", toons);		
 		 }
 		
-	
+	// 작품 수정 
+		@RequestMapping(value = "/toons/modify", method = RequestMethod.GET)
+		public void getToonsModify(@RequestParam("n") int toonNum, Model model) throws Exception {
+		// @RequestParam("n")으로 인해, URL주소에 있는 n의 값을 가져와 toonNum에 저장
+			
+			logger.info("get toons modify");
+			
+			ToonsViewVO toons = adminService.toonsView(toonNum);  // ToonsViewVO형태 변수 toons에 상품 정보 저장
+			model.addAttribute("toons", toons);
+			
+			
+			List<CategoryVO> category = null;
+			category = adminService.category();
+			model.addAttribute("category", JSONArray.fromObject(category));
+		}
+		
+	// 상품 수정
+		@RequestMapping(value = "/toons/modify", method = RequestMethod.POST)
+		public String postToonsModify(ToonVO vo) throws Exception {
+		 logger.info("post toons modify");
+
+		 adminService.toonsModify(vo);
+		 
+		 return "redirect:/admin/index";
+		}
+		
+	// 상품 삭제
+		@RequestMapping(value = "/toons/delete", method = RequestMethod.POST)
+		public String postToonsDelete(@RequestParam("n") int toonNum) throws Exception {
+		// @RequestParam("n")으로 인해, URL주소에 있는 n의 값을 가져와 toonNum에 저장
+		
+			logger.info("post toons delete");
+		
+			adminService.toonsDelete(toonNum);
+			
+			return "redirect:/admin/index";
+		}
 }
 

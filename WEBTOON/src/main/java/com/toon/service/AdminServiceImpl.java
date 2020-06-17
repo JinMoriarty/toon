@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.toon.domain.CategoryVO;
 import com.toon.domain.ToonVO;
+import com.toon.domain.ToonsViewVO;
 import com.toon.persistence.AdminDAO;
  
 @Service
@@ -35,9 +36,21 @@ public class AdminServiceImpl implements AdminService {
 		return dao.toonslist();
 	}
 	
-	// 작품 조회
+	// 작품 조회 + 카테고리 조인
 	@Override
-	public ToonVO toonsView(int toonNum) throws Exception {
+	public ToonsViewVO toonsView(int toonNum) throws Exception {
 		return dao.toonsView(toonNum);
 		}
+	
+	//작품 수정
+	@Override
+	public void toonsModify(ToonVO vo) throws Exception{
+		dao.toonsModify(vo);
+	}
+	
+	//작품 삭제
+	@Override
+	public void toonsDelete(int toonNum) throws Exception{
+		dao.toonsDelete(toonNum);
+	}
 }

@@ -24,9 +24,42 @@
 	</select>
 
 	<!-- 작품 조회 -->
+	<!-- 
 	<select id="toonsView" resultType="com.toon.domain.ToonVO">
 		SELECT toonNum, toonName, toonGenre, cateCode,
 		toonFin, toonImg, toonDes, toonDate from tbl_toon
 		where toonNum = #{toonNum}
 	</select>
+	 -->
+	 
+	 <!-- 작품 조회 + 카테고리 조인-->
+	<select id="toonsView" resultType="com.toon.domain.ToonsViewVO">
+ 		select t.toonNum, t.toonName, t.cateCode, c.cateCodeRef, c.cateName, toonGenre, toonDes, toonGood, toonView, toonFin, toonDate
+		from tbl_toon t
+		inner join toon_category c
+		on t.cateCode = c.cateCode
+		where t.toonNum = #{toonNum}
+	</select>
+	
+	<!-- 작품 수정 -->
+	<update id = "toonsModify">
+		update tbl_toon
+    		set
+        		toonName = #{toonName},
+        		cateCode = #{cateCode},
+        		toonGenre = #{toonGenre},
+        		toonDes = #{toonDes}
+    		where toonNum = ${toonNum}
+	</update>
+		
+	<!-- 작품 삭제 -->
+	<delete id="toonsDelete">
+		delete
+			tbl_toon
+			where toonNum = #{toonNum}
+	</delete>
+	
+	
 </mapper>
+
+
