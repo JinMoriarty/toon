@@ -137,7 +137,7 @@ textarea#gdsDes {
 	
 }
 
-.gdsDes img {
+.toonDes img {
 	max-width: 600px;
 	height: auto;
 }
@@ -185,6 +185,15 @@ textarea#gdsDes {
 						<label for="toonDes">내용</label> <span>${toons.toonDes}</span>
 					</div>
 
+					<div class="inputArea">
+ 						<label for="toonImg">이미지</label>
+ 						<p>원본 이미지</p>
+ 						<img src="${toons.toonImg}" class="oriImg"/>
+ 
+ 						<p>썸네일</p>
+ 						<img src="${toons.toonThumbImg}" class="thumbImg"/>
+					</div>
+					
 					<div class="inputArea">
 						<button type="button" id="modify_Btn" class="btn btn-warning">수정</button>
 						<button type="button" id="delete_Btn" class="btn btn-danger">삭제</button>

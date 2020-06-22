@@ -13,8 +13,8 @@
 
 	<!-- 작품 등록 -->
 	<insert id="register">
-		insert into tbl_toon (toonNum, toonName,toonGenre, cateCode, toonDes)
-     values (tbl_toon_seq.nextval, #{toonName}, #{toonGenre}, #{cateCode}, #{toonDes})
+		insert into tbl_toon (toonNum, toonName,toonGenre, cateCode, toonDes, toonImg, toonThumbImg)
+     values (tbl_toon_seq.nextval, #{toonName}, #{toonGenre}, #{cateCode}, #{toonDes}, #{toonImg}, #{toonThumbImg})
 	</insert>
 
 	<!-- 작품 목록 -->
@@ -34,7 +34,8 @@
 	 
 	 <!-- 작품 조회 + 카테고리 조인-->
 	<select id="toonsView" resultType="com.toon.domain.ToonsViewVO">
- 		select t.toonNum, t.toonName, t.cateCode, c.cateCodeRef, c.cateName, toonGenre, toonDes, toonGood, toonView, toonFin, toonDate
+ 		select t.toonNum, t.toonName, t.cateCode, c.cateCodeRef, c.cateName, toonGenre, toonDes, toonGood, toonView, 
+ 		toonFin, toonDate, t.toonImg, t.toonThumbImg
 		from tbl_toon t
 		inner join toon_category c
 		on t.cateCode = c.cateCode

@@ -97,6 +97,16 @@ footer#footer ul li {
 	display: inline-block;
 	margin-right: 10px;
 }
+.select_img img { 
+	margin:20px 0;
+	left: 200px;
+}
+
+#register_Btn {
+    position: relative;
+    left: 200px;
+}
+
 </style>
 
 </head>
@@ -118,7 +128,7 @@ footer#footer ul li {
 			<aside>
 				<%@ include file="../include/aside.jsp"%>
 			</aside>
-			<form role="form" method="post" autocomplete="off">
+			<form role="form" method="post" autocomplete="off" enctype="multipart/form-data">
 
 				<label>1차 분류</label> <select class="category1">
 					<option value="">전체</option>
@@ -140,7 +150,27 @@ footer#footer ul li {
 					<label for="toonDes">내용</label>
 					<textarea rows="5" cols="50" id="toonDes" name="toonDes"></textarea>
 				</div>
-
+				
+				<div class="inputArea">
+ 					<label for="toonImg">이미지</label>
+ 					<input type="file" id="toonImg" name="file" />
+ 					<div class="select_img"><img src="" /></div>
+ 
+ 					<script>
+  						$("#toonImg").change(function(){
+   						 if(this.files && this.files[0]) {
+    					  var reader = new FileReader;
+    					  reader.onload = function(data) {
+     						$(".select_img img").attr("src", data.target.result).width(500);        
+    					  }
+    					  reader.readAsDataURL(this.files[0]);
+   						  }
+  						});
+ 						</script>
+ 						
+ 						<%=request.getRealPath("/") %>
+					</div>
+					
 				<div class="inputArea">
 					<button type="submit" id="register_Btn" class="btn btn-primary">등록</button>
 				</div>

@@ -31,5 +31,6 @@
 	<context:component-scan base-package="com.toon.domain" />
 	<context:component-scan base-package="com.toon.persistence" />
 	<context:component-scan base-package="com.toon.service" />
-   
+    <context:component-scan base-package="com.toon.utils" />
+    
 </beans>

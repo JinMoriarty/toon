@@ -33,6 +33,14 @@ public class ToonsViewVO {
 	private String cateCodeRef;
 	private String cateName;
 	
+	private String toonThumbImg;
+	
+	public String getToonThumbImg() {
+		return toonThumbImg;
+	}
+	public void setToonThumbImg(String toonThumbImg) {
+		this.toonThumbImg = toonThumbImg;
+	}
 	public String getCateCodeRef() {
 		return cateCodeRef;
 	}
