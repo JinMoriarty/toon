@@ -97,6 +97,13 @@ footer#footer ul li {
 	display: inline-block;
 	margin-right: 10px;
 }
+
+.oriImg {
+	width:500px;
+	height:auto;
+}
+
+.toonDes img { max-width:600px; height:auto; }
 </style>
 
 
@@ -182,7 +189,9 @@ textarea#gdsDes {
 					</div>
 
 					<div class="inputArea">
-						<label for="toonDes">내용</label> <span>${toons.toonDes}</span>
+						<label for="toonDes">내용</label> 
+						<!-- <span>${toons.toonDes}</span> -->
+						<div class="toonDes">${toons.toonDes}</div>
 					</div>
 
 					<div class="inputArea">

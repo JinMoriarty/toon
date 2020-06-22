@@ -12,6 +12,7 @@
 <link rel="stylesheet"
 	href="/resources/bootstrap/bootstrap-theme.min.css">
 <script src="/resources/bootstrap/bootstrap.min.js"></script>
+<script src="/resources/ckeditor/ckeditor.js"></script>
 
 <style>
 body {
@@ -155,6 +156,17 @@ footer#footer ul li {
 				<div class="inputArea">
 					<label for="toonDes">내용</label>
 					<textarea rows="5" cols="50" id="toonDes" name="toonDes">${toons.toonDes}</textarea>
+					
+					<script>
+ 						var ckeditor_config = {
+   							resize_enaleb : false,
+   							enterMode : CKEDITOR.ENTER_BR,
+   							shiftEnterMode : CKEDITOR.ENTER_P,
+   							filebrowserUploadUrl : "/admin/toons/ckUpload"
+ 						};
+ 
+						 CKEDITOR.replace("toonDes", ckeditor_config);
+					</script>
 				</div>
 				<div class="inputArea">
  					<label for="toonImg">이미지</label>
