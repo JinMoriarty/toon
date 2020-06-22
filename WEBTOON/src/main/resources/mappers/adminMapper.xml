@@ -49,7 +49,10 @@
         		toonName = #{toonName},
         		cateCode = #{cateCode},
         		toonGenre = #{toonGenre},
-        		toonDes = #{toonDes}
+        		toonDes = #{toonDes},
+        		toonImg = #{toonImg},
+        		toonThumbImg = #{toonThumbImg}
+        		
     		where toonNum = ${toonNum}
 	</update>
 		

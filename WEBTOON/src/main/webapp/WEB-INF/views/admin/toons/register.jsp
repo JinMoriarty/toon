@@ -154,7 +154,7 @@ footer#footer ul li {
 				<div class="inputArea">
  					<label for="toonImg">이미지</label>
  					<input type="file" id="toonImg" name="file" />
- 					<div class="select_img"><img src="" /></div>
+ 					<div class="select_img"><img src=""/></div>
  
  					<script>
   						$("#toonImg").change(function(){

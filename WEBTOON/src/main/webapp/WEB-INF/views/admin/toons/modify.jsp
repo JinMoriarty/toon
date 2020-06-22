@@ -97,6 +97,19 @@ footer#footer ul li {
 	display: inline-block;
 	margin-right: 10px;
 }
+.select_img img { 
+	margin:20px 0;
+	width:500px;
+}
+
+#update_Btn {
+    position: relative;
+    left: 200px;
+}
+#back_Btn {
+    position: relative;
+    left: 200px;
+}
 </style>
 
 </head>
@@ -118,7 +131,7 @@ footer#footer ul li {
 			<aside>
 				<%@ include file="../include/aside.jsp"%>
 			</aside>
-			<form role="form" method="post" autocomplete="off">
+			<form role="form" method="post" autocomplete="off" enctype="multipart/form-data">
 			
 			<input type="hidden" name="toonNum" value="${toons.toonNum}" />
 			
@@ -143,6 +156,30 @@ footer#footer ul li {
 					<label for="toonDes">내용</label>
 					<textarea rows="5" cols="50" id="toonDes" name="toonDes">${toons.toonDes}</textarea>
 				</div>
+				<div class="inputArea">
+ 					<label for="toonImg">이미지</label>
+ 					<input type="file" id="toonImg" name="file" />
+ 					<div class="select_img">
+ 						<img src="${toons.toonImg}" />
+ 						<input type="hidden" name="toonImg" value="${toons.toonImg}"/>
+ 						<input type="hidden" name="toonThumbImg" value="${toons.toonThumbImg}"/>
+ 					</div>
+ 
+ 					<script>
+  						$("#toonImg").change(function(){
+   						 if(this.files && this.files[0]) {
+    					  var reader = new FileReader;
+    					  reader.onload = function(data) {
+     						$(".select_img img").attr("src", data.target.result).width(500);        
+    					  }
+    					  reader.readAsDataURL(this.files[0]);
+   						  }
+  						});
+ 						</script>
+ 						
+ 						<%=request.getRealPath("/") %>
+					</div>
+				
 				<div class="inputArea">
 					<button type="submit" id="update_Btn" class="btn btn-primary">완료</button>
 					<button type="button" id="back_Btn" class="btn btn-warning">취소</button>

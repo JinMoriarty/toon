@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -103,7 +104,7 @@ public class AdminController {
 		
 	// 작품 수정 
 		@RequestMapping(value = "/toons/modify", method = RequestMethod.GET)
-		public void getToonsModify(@RequestParam("n") int toonNum, Model model) throws Exception {
+		public void postToonsModify(@RequestParam("n") int toonNum, Model model) throws Exception {
 		// @RequestParam("n")으로 인해, URL주소에 있는 n의 값을 가져와 toonNum에 저장
 			
 			logger.info("get toons modify");
@@ -119,12 +120,32 @@ public class AdminController {
 		
 	// 상품 수정
 		@RequestMapping(value = "/toons/modify", method = RequestMethod.POST)
-		public String postToonsModify(ToonVO vo) throws Exception {
+		public String postToonsModify(ToonVO vo, MultipartFile file, HttpServletRequest req) throws Exception {
 		 logger.info("post toons modify");
-
-		 adminService.toonsModify(vo);
-		 
-		 return "redirect:/admin/index";
+		// 새로운 파일이 등록되었는지 확인
+			if(file.getOriginalFilename() != null && file.getOriginalFilename() != "") {
+				// 기존 파일을 삭제
+				new File(uploadPath + req.getParameter("toonImg")).delete();
+				new File(uploadPath + req.getParameter("toonThumbImg")).delete();
+				
+				// 새로 첨부한 파일을 등록
+				String imgUploadPath = uploadPath + File.separator + "imgUpload";
+				String ymdPath = UploadFileUtils.calcPath(imgUploadPath);
+				String fileName = UploadFileUtils.fileUpload(imgUploadPath, file.getOriginalFilename(), file.getBytes(), ymdPath);
+				
+				vo.setToonImg(File.separator + "imgUpload" + ymdPath + File.separator + fileName);
+				vo.setToonThumbImg(File.separator + "imgUpload" + ymdPath + File.separator + "s" + File.separator + "s_" + fileName);
+				
+			} else {  // 새로운 파일이 등록되지 않았다면
+				// 기존 이미지를 그대로 사용
+				vo.setToonImg(req.getParameter("toonImg"));
+				vo.setToonThumbImg(req.getParameter("toonThumbImg"));
+				
+			}
+			
+			adminService.toonsModify(vo);
+			
+			return "redirect:/admin/index";
 		}
 		
 	// 상품 삭제
