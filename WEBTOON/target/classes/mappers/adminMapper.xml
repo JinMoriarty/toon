@@ -18,9 +18,18 @@
 	</insert>
 
 	<!-- 작품 목록 -->
+	<!-- 
 	<select id="toonslist" resultType="com.toon.domain.ToonVO">
 		SELECT toonNum, toonName, toonGenre,cateCode ,toonFin,toonCash, toonView,toonGood, 
 		toonImg, toonDes, toonDate from tbl_toon
+	</select>
+	 -->
+	 <select id="toonslist" resultType="com.toon.domain.ToonsViewVO">
+		SELECT t.toonNum, t.toonName, c.cateCodeRef, c.cateName, toonGenre,c.cateCode ,toonFin,toonCash, toonView,toonGood, 
+		toonDes, toonDate,t.toonImg, t.toonThumbImg  
+		from tbl_toon t
+             inner join toon_category c
+                 on t.cateCode = c.cateCode
 	</select>
 
 	<!-- 작품 조회 -->

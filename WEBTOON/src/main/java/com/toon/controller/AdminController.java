@@ -93,7 +93,7 @@ public class AdminController {
 		public void getToonsList(Model model) throws Exception {
 			logger.info("get toons list");
 			
-			List<ToonVO> list = adminService.toonslist();
+			List<ToonsViewVO> list = adminService.toonslist();
 			
 			model.addAttribute("list",list);			
 		}

@@ -31,7 +31,7 @@ public class AdminServiceImpl implements AdminService {
 	
 	// 작품 목록
 	@Override
-	public List<ToonVO> toonslist() throws Exception {
+	public List<ToonsViewVO> toonslist() throws Exception {
 		System.out.println("서비스");
 		return dao.toonslist();
 	}

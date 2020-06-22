@@ -36,7 +36,7 @@ public class AdminDAOImpl implements AdminDAO {
 	
 	// 작품 목록
 	@Override
-	public List<ToonVO> toonslist() throws Exception {
+	public List<ToonsViewVO> toonslist() throws Exception {
 		return sql.selectList(namespace + ".toonslist");
 	}
 	

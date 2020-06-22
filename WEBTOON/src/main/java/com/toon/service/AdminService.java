@@ -15,7 +15,7 @@ public interface AdminService {
 	public void register(ToonVO vo) throws Exception;
 
 	// 작품 목록
-	public List<ToonVO> toonslist() throws Exception;
+	public List<ToonsViewVO> toonslist() throws Exception;
 
 	// 작품 조회 + 카테고리 조인
 	public ToonsViewVO toonsView(int toonNum) throws Exception;

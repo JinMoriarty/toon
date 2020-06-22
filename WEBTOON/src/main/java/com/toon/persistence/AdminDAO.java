@@ -16,7 +16,7 @@ public interface AdminDAO {
 	public void register(ToonVO vo) throws Exception;
 	
 	// 작품 목록
-	public List<ToonVO> toonslist() throws Exception;
+	public List<ToonsViewVO> toonslist() throws Exception;
 	
 	// 작품 조회
 	public ToonsViewVO toonsView(int toonNum) throws Exception;
