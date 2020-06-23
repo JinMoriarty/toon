@@ -85,7 +85,7 @@
 				<tbody>
 					<c:forEach items="${list}" var="list">
 						<tr>
-							<td><img src="${list.toonThumbImg}"></td>
+							<td><a href="/admin/toons/view?n=${list.toonNum}"><img src="${list.toonThumbImg}"></a></td>
 							<td><a href="/admin/toons/view?n=${list.toonNum}">${list.toonName}</a></td>
 							<!--<td>${list.cateCode}</td> -->
 							<td>${list.cateName}</td>

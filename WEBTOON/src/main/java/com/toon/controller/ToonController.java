@@ -19,21 +19,31 @@ import com.toon.service.ToonService;
 @RequestMapping("/toon/*")
 public class ToonController {
 
- private static final Logger logger = LoggerFactory.getLogger(ToonController.class);
- 
- @Inject
- ToonService service;
-    
- // 카테고리별 상품 리스트
- @RequestMapping(value = "/list", method = RequestMethod.GET)
- public void getList(@RequestParam("c") int cateCode,
-      @RequestParam("l") int level, Model model) throws Exception {
-  logger.info("get llist");
-  
-  List<ToonsViewVO> list = null;
-  list = service.list(cateCode, level);
- 
-  model.addAttribute("list", list);
-  
- }
+	private static final Logger logger = LoggerFactory.getLogger(ToonController.class);
+
+	@Inject
+	ToonService service;
+
+	// 카테고리별 상품 리스트
+	@RequestMapping(value = "/list", method = RequestMethod.GET)
+	public void getList(@RequestParam("c") int cateCode, @RequestParam("l") int level, Model model) throws Exception {
+		logger.info("get llist");
+
+		List<ToonsViewVO> list = null;
+		list = service.list(cateCode, level);
+
+		model.addAttribute("list", list);
+	}
+	
+	// 작품 조회
+	@RequestMapping(value = "/view", method = RequestMethod.GET)
+	public void getView(@RequestParam("n")int toonNum, Model model) throws Exception{
+		logger.info("get view");
+		
+		ToonsViewVO view = service.toonsView(toonNum);
+		 model.addAttribute("view", view);
+	}
+	
+	
+	
 }
