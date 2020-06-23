@@ -6,6 +6,8 @@ import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
 
+import com.toon.domain.ReplyListVO;
+import com.toon.domain.ReplyVO;
 import com.toon.domain.ToonsViewVO;
 import com.toon.persistence.ToonDAO;
 
@@ -36,21 +38,20 @@ public class ToonServiceImpl implements ToonService {
 		return dao.toonsView(toonNum);
 	}
 	
-	/*
-	 * 
-
+	
 	// 상품 소감(댓글) 작성
-	@Override
-	public void registReply(ReplyVO reply) throws Exception {
-		dao.registReply(reply);		
+		@Override
+		public void registReply(ReplyVO reply) throws Exception {
+			dao.registReply(reply);		
 	}
-
+		
 	// 상품 소감(댓글) 리스트
-	@Override
-	public List<ReplyListVO> replyList(int gdsNum) throws Exception {
-		return dao.replyList(gdsNum);
-	}
-
+		@Override
+		public List<ReplyListVO> replyList(int toonNum) throws Exception {
+			return dao.replyList(toonNum);
+		}
+		
+	/*
 	// 상품 소감(댓글) 삭제
 	@Override
 	public void deleteReply(ReplyVO reply) throws Exception {

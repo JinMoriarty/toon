@@ -3,6 +3,7 @@ package com.toon.controller;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,6 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.toon.domain.MemberVO;
+import com.toon.domain.ReplyListVO;
+import com.toon.domain.ReplyVO;
 import com.toon.domain.ToonsViewVO;
 import com.toon.service.ToonService;
 
@@ -42,6 +46,22 @@ public class ToonController {
 		
 		ToonsViewVO view = service.toonsView(toonNum);
 		 model.addAttribute("view", view);
+		 
+		 List<ReplyListVO> reply = service.replyList(toonNum);
+		 model.addAttribute("reply", reply);
+	}
+	
+	// 작품 조회 - 댓글 작성
+	@RequestMapping(value = "/view", method = RequestMethod.POST)
+	public String registReply(ReplyVO reply, HttpSession session) throws Exception {
+	 logger.info("regist reply");
+	 
+	 MemberVO member = (MemberVO)session.getAttribute("member");
+	 reply.setUserId(member.getUserId());
+	 
+	 service.registReply(reply);
+	 
+	 return "redirect:/toon/view?n=" + reply.getToonNum();
 	}
 	
 	

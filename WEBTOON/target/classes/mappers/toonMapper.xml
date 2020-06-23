@@ -20,5 +20,21 @@ toonView, toonFin, toonDate, t.toonImg, t.toonThumbImg from tbl_toon t inner joi
 where t.cateCode = #{cateCode}
 </select>
 
+<!-- 상품 소감(댓글) 작성 -->
+<insert id="registReply">
+ insert into tbl_reply (toonNum, userId, repNum, repCon)
+     values (#{toonNum}, #{userId}, tbl_reply_seq.nextval, #{repCon})
+</insert>
+
+<!-- 상품 소감(댓글) 리스트 -->
+<select id="replyList" resultType="com.toon.domain.ReplyListVO">
+ select
+r.toonNum, r.userId, r.repNum, r.repCon, r.repGood, r.repDate, m.userName
+from tbl_reply r
+inner join tbl_member m
+ on r.userId = m.userId
+ where toonNum = #{toonNum}
+</select>
+
 
 </mapper>

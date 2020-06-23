@@ -1,6 +1,9 @@
 package com.toon.persistence;
 
 import java.util.List;
+
+import com.toon.domain.ReplyListVO;
+import com.toon.domain.ReplyVO;
 import com.toon.domain.ToonsViewVO;
 
 public interface ToonDAO {
@@ -15,13 +18,12 @@ public interface ToonDAO {
 	//작품 조회
 	public ToonsViewVO toonsView(int toonNum) throws Exception;
 	
-	/*
-	 * // 작품 소감(댓글) 작성
+	// 작품 소감(댓글) 작성
 	public void registReply(ReplyVO reply) throws Exception;
 	
 	// 작품 소감(댓글) 리스트
-	public List<ReplyListVO> replyList(int gdsNum) throws Exception;
-	
+	public List<ReplyListVO> replyList(int toonNum) throws Exception;
+	/*
 	// 작품 소감(댓글) 삭제
 	public void deleteReply(ReplyVO reply) throws Exception;
 	
