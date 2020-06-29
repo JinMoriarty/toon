@@ -4,8 +4,9 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <html>
 <head>
-<title>HOJIN</title>
 <script src="/resources/jquery/jquery-3.3.1.min.js"></script>
+<title>HOJIN</title>
+
 <script>
 function replyList() {
 								
@@ -26,11 +27,15 @@ function replyList() {
 								+"</div>"
 								+ "<div class='replyContent'>" + this.repCon + "</div>"
 								
+								+ "<c:if test='${member != null}'>"
+								
 								+ "<div class='replyFooter'>"
 								 + "<button type='button' class='modify' data-repNum='" + this.repNum + "'>수정</button>"
 								 + "<button type='button' class='delete' data-repNum='" + this.repNum + "'>삭제</button>"
 								 + "</div>"
-								
+
+								 + "</c:if>"
+								 
 								+ "</li>";											
 					});
 
@@ -452,47 +457,53 @@ section.replyList div.replyFooter button { font-size:14px; border: 1px solid #99
 							</script>
 							
 							<script>
-							
-									$(document).on("click", ".modify", function(){
-											//$(".replyModal").attr("style", "display:block;");
-											$(".replyModal").fadeIn(200);
+						
+							$(document).on("click", ".modify", function(){
+								//$(".replyModal").attr("style", "display:block;");
+								$(".replyModal").fadeIn(200);
+								
+								var repNum = $(this).attr("data-repNum");
+								var repCon = $(this).parent().parent().children(".replyContent").text();
+								
+								$(".modal_repCon").val(repCon);
+								$(".modal_modify_btn").attr("data-repNum", repNum);
+								
+							});
+													
+							// 스크립트로 인해 생성된 HTML의 이벤트는 .click() 메서드를 사용할 수 없음
+							$(document).on("click", ".delete", function(){
+								
+								// 사용자에게 삭제 여부를 확인
+								var deletConfirm = confirm("정말로 삭제하시겠습니까?"); 
+								
+								if(deletConfirm) {
+								
+									var data = {repNum : $(this).attr("data-repNum")};  // ReplyVO 형태로 데이터 생성
+									
+									$.ajax({
+										url : "/toon/view/deleteReply",
+										type : "post",
+										data : data,
+										success : function(result){
 											
-											var repNum = $(this).attr("data-repNum");
-											var repCon = $(this).parent().parent().children(".replyContent").text();
-											
-											$(".modal_repCon").val(repCon);
-											$(".modal_modify_btn").attr("data-repNum", repNum);
-											
-									});	
-							
-								$(document).on("click", ".delete", function(){
-									
-									var deletConfirm = confirm("정말로 삭제하시겠습니까?");
-									
-									if(deletConfirm){
-									
-										var data = {repNum : $(this).attr("data-repNum")};
-									
-										$.ajax({
-											url : "/toon/view/deleteReply",
-											type : "post",
-											data : data,
-											success : function(result){
-											 
-											 if(result == 1) {
-											  replyList();
-											 } else {
-											  alert("작성자 본인만 할 수 있습니다.");     
-											 }
+											// result의 값에 따라 동작
+											if(result == 1) {
+												replyList();  // 리스트 새로고침
+											} else {
+												alert("작성자 본인만 할 수 있습니다.")  // 본인이 아닌 경우										
+											}
 										},
-										error : function() {
+										error : function(){
+											// 로그인하지 않아서 에러가 발생한 경우
 											alert("로그인하셔야합니다.")
+											console.log(result);
 										}
 									});
-									}
-								});
-							
-							</script>
+								}
+							});
+						
+						</script>
+
 							
 						</section>
 					</div>
@@ -527,13 +538,6 @@ section.replyList div.replyFooter button { font-size:14px; border: 1px solid #99
  <div class="modalBackground"></div>
  
 </div>
-
-<script>
-$(".modal_cancel").click(function(){
- //$(".replyModal").attr("style", "display:none;");
- $(".replyModal").fadeOut(200);
-});
-</script>
 
 <script>
 $(".modal_modify_btn").click(function(){

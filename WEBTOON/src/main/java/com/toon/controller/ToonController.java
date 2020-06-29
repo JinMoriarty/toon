@@ -94,24 +94,53 @@ public class ToonController {
 	// 상품 소감(댓글) 삭제
 	@ResponseBody
 	@RequestMapping(value = "/view/deleteReply", method = RequestMethod.POST)
-	public int getReplyList(ReplyVO reply, HttpSession session) throws Exception {
-	 logger.info("post delete reply");
-
-	 int result = 0;
-	 
-	 MemberVO member = (MemberVO)session.getAttribute("member");
-	 String userId = service.idCheck(reply.getRepNum());
-	   
-	 if(member.getUserId().equals(userId)) {
-	  
-	  reply.setUserId(member.getUserId());
-	  service.deleteReply(reply);
-	  
-	  result = 1;
-	 }
-	 
-	 return result; 
-	}
+	public int getReplyList(ReplyVO reply,  HttpSession session) throws Exception {
+		logger.info("post delete reply");
+			// 정상작동 여부를 확인하기 위한 변수
+		int result = 0;
+			
+		MemberVO member = (MemberVO)session.getAttribute("member");  // 현재 로그인한  member 세션을 가져옴
+		String userId = service.idCheck(reply.getRepNum());  // 소감(댓글)을 작성한 사용자의 아이디를 가져옴
+				
+		// 로그인한 아이디와, 소감을 작성한 아이디를 비교
+		if(member.getUserId().equals(userId)) {
+			
+			// 로그인한 아이디가 작성한 아이디와 같다면
+			
+		reply.setUserId(member.getUserId());  // reply에 userId 저장
+			service.deleteReply(reply);  // 서비스의 deleteReply 메서드 실행
+				
+			// 결과값 변경
+			result = 1;
+		}
+			
+		// 정상적으로 실행되면 소감 삭제가 진행되고, result값은 1이지만
+		// 비정상적으로 실행되면 소감 삭제가 안되고, result값이 0
+		System.out.println(result);
+		return result;	
+		}
+		
+	// 상품 소감(댓글) 수정
+	@ResponseBody
+	@RequestMapping(value = "/view/modifyReply", method = RequestMethod.POST)
+	public int modifyReply(ReplyVO reply, HttpSession session) throws Exception {
+		logger.info("modify reply");
+			
+		int result = 0;
+			
+		MemberVO member = (MemberVO)session.getAttribute("member");
+		String userId = service.idCheck(reply.getRepNum());
+			
+		if(member.getUserId().equals(userId)) {
+				
+			reply.setUserId(member.getUserId());
+			service.modifyReply(reply);
+			result = 1;
+		}
+			
+		return result;
+			
+	}	
 	
 	
 	

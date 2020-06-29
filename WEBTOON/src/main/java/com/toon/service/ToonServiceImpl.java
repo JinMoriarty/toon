@@ -64,13 +64,14 @@ public class ToonServiceImpl implements ToonService {
 		return dao.idCheck(repNum);
 	}
 
-	/*
+	
 	// 작품 소감(댓글) 수정
 	@Override
 	public void modifyReply(ReplyVO reply) throws Exception {
 		dao.modifyReply(reply);
 	}
 
+	/*
 	// 카트 담기
 	@Override
 	public void addCart(CartListVO cart) throws Exception {

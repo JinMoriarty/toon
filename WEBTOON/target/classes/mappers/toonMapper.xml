@@ -38,17 +38,26 @@ inner join tbl_member m
 
 <!-- 상품 소감(댓글) 삭제 -->
 <delete id="deleteReply">
- delete tbl_reply
-     where repNum = #{repNum}
-         and userId = #{userId}
+delete tbl_reply
+where repNum = #{repNum}
+and userId = #{userId}
 </delete>
 
 <!-- 아이디 체크 -->
 <select id="replyUserIdCheck" resultType="String">
- select userId
-  from tbl_reply
-      where repNum = #{repNum}
+select userId
+from tbl_reply
+where repNum = #{repNum}
 </select>
+
+<!-- 상품 소감(댓글) 수정 -->
+<update id="modifyReply">
+update tbl_reply
+set
+repCon = #{repCon}
+where repNum = #{repNum}
+and userId = #{userId}
+</update>
 
 
 </mapper>
