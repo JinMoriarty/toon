@@ -39,20 +39,20 @@ public class ToonServiceImpl implements ToonService {
 	}
 	
 	
-	// 상품 소감(댓글) 작성
+	// 작품 소감(댓글) 작성
 		@Override
 		public void registReply(ReplyVO reply) throws Exception {
 			dao.registReply(reply);		
 	}
 		
-	// 상품 소감(댓글) 리스트
+	// 작품 소감(댓글) 리스트
 		@Override
 		public List<ReplyListVO> replyList(int toonNum) throws Exception {
 			return dao.replyList(toonNum);
 		}
 		
-	/*
-	// 상품 소감(댓글) 삭제
+	
+	// 작품 소감(댓글) 삭제
 	@Override
 	public void deleteReply(ReplyVO reply) throws Exception {
 		dao.deleteReply(reply);
@@ -64,7 +64,8 @@ public class ToonServiceImpl implements ToonService {
 		return dao.idCheck(repNum);
 	}
 
-	// 상품 소감(댓글) 수정
+	/*
+	// 작품 소감(댓글) 수정
 	@Override
 	public void modifyReply(ReplyVO reply) throws Exception {
 		dao.modifyReply(reply);

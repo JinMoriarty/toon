@@ -5,6 +5,40 @@
 <html>
 <head>
 <title>HOJIN</title>
+<script src="/resources/jquery/jquery-3.3.1.min.js"></script>
+<script>
+function replyList() {
+								
+				var toonNum = ${view.toonNum};
+				$.getJSON("/toon/view/replyList" + "?n="+ toonNum, function(data){
+					var str = "";
+													
+					$(data).each(function() {
+								console.log(data);
+
+								var repDate = new Date(this.repDate);
+								repDate = repDate.toLocaleDateString("ko-US")
+
+								str += "<li data-repNum='" + this.repNum + "'>" //"<li data-gdsNum='" + this.gdsNum + "'>"
+								+ "<div class='userInfo'>"
+								+ "<span class='userName'>" + this.userName + "</span>"
+								+ "<span class='date'>" +repDate + "</span>"
+								+"</div>"
+								+ "<div class='replyContent'>" + this.repCon + "</div>"
+								
+								+ "<div class='replyFooter'>"
+								 + "<button type='button' class='modify' data-repNum='" + this.repNum + "'>수정</button>"
+								 + "<button type='button' class='delete' data-repNum='" + this.repNum + "'>삭제</button>"
+								 + "</div>"
+								
+								+ "</li>";											
+					});
+
+				$("section.replyList ol").html(str);
+		});
+}
+</script>
+
 <style>
 body {
 	margin: 0;
@@ -230,18 +264,76 @@ div.toons div.toonsDes {
 </style>
 
 <style>
- section.replyForm { padding:30px 0; }
- section.replyForm div.input_area { margin:10px 0; }
- section.replyForm textarea { font-size:16px; font-family:'맑은 고딕', verdana; padding:10px; width:500px;; height:150px; }
- section.replyForm button { font-size:20px; padding:5px 10px; margin:10px 0; background:#fff; border:1px solid #ccc; }
- 
- section.replyList { padding:30px 0; }
- section.replyList ol { padding:0; margin:0; }
- section.replyList ol li { padding:10px 0; border-bottom:2px solid #eee; }
- section.replyList div.userInfo { }
- section.replyList div.userInfo .userName { font-size:24px; font-weight:bold; }
- section.replyList div.userInfo .date { color:#999; display:inline-block; margin-left:10px; }
- section.replyList div.replyContent { padding:10px; margin:20px 0; }
+section.replyForm {
+	padding: 30px 0;
+}
+
+section.replyForm div.input_area {
+	margin: 10px 0;
+}
+
+section.replyForm textarea {
+	font-size: 16px;
+	font-family: '맑은 고딕', verdana;
+	padding: 10px;
+	width: 500px;;
+	height: 150px;
+}
+
+section.replyForm button {
+	font-size: 20px;
+	padding: 5px 10px;
+	margin: 10px 0;
+	background: #fff;
+	border: 1px solid #ccc;
+}
+
+section.replyList {
+	padding: 30px 0;
+}
+
+section.replyList ol {
+	padding: 0;
+	margin: 0;
+}
+
+section.replyList ol li {
+	padding: 10px 0;
+	border-bottom: 2px solid #eee;
+}
+
+section.replyList div.userInfo {
+	
+}
+
+section.replyList div.userInfo .userName {
+	font-size: 24px;
+	font-weight: bold;
+}
+
+section.replyList div.userInfo .date {
+	color: #999;
+	display: inline-block;
+	margin-left: 10px;
+}
+
+section.replyList div.replyContent {
+	padding: 10px;
+	margin: 20px 0;
+}
+
+section.replyList div.replyFooter button { font-size:14px; border: 1px solid #999; background:none; margin-right:10px; }
+
+
+</style>
+
+<style>
+ div.replyModal { position:relative; z-index:1; display:none; }
+ div.modalBackground { position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0, 0, 0, 0.8); z-index:-1; }
+ div.modalContent { position:fixed; top:20%; left:calc(50% - 250px); width:500px; height:250px; padding:20px 10px; background:#fff; border:2px solid #666; }
+ div.modalContent textarea { font-size:16px; font-family:'맑은 고딕', verdana; padding:10px; width:500px; height:200px; }
+ div.modalContent button { font-size:20px; padding:5px 10px; margin:10px 0; background:#fff; border:1px solid #ccc; }
+ div.modalContent button.modal_cancel { margin-left:20px; }
 </style>
 </head>
 <body>
@@ -276,7 +368,7 @@ div.toons div.toonsDes {
 						</div>
 
 						<div class="goodsInfo">
-							<p class="gdsName">
+							<p class="toonName">
 								<span>제목 </span>${view.toonName}</p>
 
 							<p class="cateName">
@@ -299,13 +391,39 @@ div.toons div.toonsDes {
 						<c:if test="${member != null}">
 							<section class="replyForm">
 								<form role="form" method="post" autocomplete="off">
-									<input type="hidden" name="toonNum" value="${view.toonNum}">
+								
+									<input type="hidden" name="toonNum" id="toonNum" value="${view.toonNum}">
+									
 									<div class="input_area">
 										<textarea name="repCon" id="repCon"></textarea>
 									</div>
 
 									<div class="input_area">
-										<button type="submit" id="reply_btn">댓글 달기</button>
+										<button type="button" id="reply_btn">댓글 달기</button>
+										
+										<script>
+ 											$("#reply_btn").click(function(){
+ 												
+  											var formObj = $(".replyForm form[role='form']");
+  											var toonNum = $("#toonNum").val();
+  											var repCon = $("#repCon").val()
+  
+  											var data = {
+    											toonNum : toonNum,
+    											repCon : repCon
+    										};
+  
+  											$.ajax({
+   												url : "/toon/view/registReply",
+   												type : "post",
+   												data : data,
+   												success : function(){
+    												replyList();
+    												$("#repCon").val("");
+   												}
+  											});
+ 										});
+										</script>
 									</div>
 
 								</form>
@@ -314,6 +432,7 @@ div.toons div.toonsDes {
 
 						<section class="replyList">
 							<ol>
+								<%--
 								<c:forEach items="${reply}" var="reply">
 
 									<li>
@@ -325,7 +444,56 @@ div.toons div.toonsDes {
 										<div class="replyContent">${reply.repCon}</div>
 									</li>
 								</c:forEach>
+								 --%>
+							
 							</ol>
+							<script>
+								replyList();
+							</script>
+							
+							<script>
+							
+									$(document).on("click", ".modify", function(){
+											//$(".replyModal").attr("style", "display:block;");
+											$(".replyModal").fadeIn(200);
+											
+											var repNum = $(this).attr("data-repNum");
+											var repCon = $(this).parent().parent().children(".replyContent").text();
+											
+											$(".modal_repCon").val(repCon);
+											$(".modal_modify_btn").attr("data-repNum", repNum);
+											
+									});	
+							
+								$(document).on("click", ".delete", function(){
+									
+									var deletConfirm = confirm("정말로 삭제하시겠습니까?");
+									
+									if(deletConfirm){
+									
+										var data = {repNum : $(this).attr("data-repNum")};
+									
+										$.ajax({
+											url : "/toon/view/deleteReply",
+											type : "post",
+											data : data,
+											success : function(result){
+											 
+											 if(result == 1) {
+											  replyList();
+											 } else {
+											  alert("작성자 본인만 할 수 있습니다.");     
+											 }
+										},
+										error : function() {
+											alert("로그인하셔야합니다.")
+										}
+									});
+									}
+								});
+							
+							</script>
+							
 						</section>
 					</div>
 				</section>
@@ -340,5 +508,68 @@ div.toons div.toonsDes {
 		</footer>
 
 	</div>
+	
+<div class="replyModal">
+
+ <div class="modalContent">
+  
+  <div>
+   <textarea class="modal_repCon" name="modal_repCon"></textarea>
+  </div>
+  
+  <div>
+   <button type="button" class="modal_modify_btn">수정</button>
+   <button type="button" class="modal_cancel">취소</button>
+  </div>
+  
+ </div>
+
+ <div class="modalBackground"></div>
+ 
+</div>
+
+<script>
+$(".modal_cancel").click(function(){
+ //$(".replyModal").attr("style", "display:none;");
+ $(".replyModal").fadeOut(200);
+});
+</script>
+
+<script>
+$(".modal_modify_btn").click(function(){
+	var modifyConfirm = confirm("정말로 수정하시겠습니까?");
+	
+	if(modifyConfirm) {
+		var data = {
+					repNum : $(this).attr("data-repNum"),
+					repCon : $(".modal_repCon").val()
+				};  // ReplyVO 형태로 데이터 생성
+		
+		$.ajax({
+			url : "/toon/view/modifyReply",
+			type : "post",
+			data : data,
+			success : function(result){
+				
+				if(result == 1) {
+					replyList();
+					$(".replyModal").fadeOut(200);
+				} else {
+					alert("작성자 본인만 할 수 있습니다.");							
+				}
+			},
+			error : function(){
+				alert("로그인하셔야합니다.")
+			}
+		});
+	}
+	
+});
+$(".modal_cancel").click(function(){
+	//$(".replyModal").attr("style", "display:none;");
+	$(".replyModal").fadeOut(200);
+});
+</script>
+
 </body>
 </html>

@@ -104,7 +104,7 @@ public class AdminController {
 		 logger.info("get toons view");
 		 
 		 ToonsViewVO toons = adminService.toonsView(toonNum);
-		 
+		 System.out.println(toonNum);
 		 model.addAttribute("toons", toons);		
 		 }
 		
@@ -117,6 +117,7 @@ public class AdminController {
 			
 			ToonsViewVO toons = adminService.toonsView(toonNum);  // ToonsViewVO형태 변수 toons에 상품 정보 저장
 			model.addAttribute("toons", toons);
+			
 			
 			
 			List<CategoryVO> category = null;

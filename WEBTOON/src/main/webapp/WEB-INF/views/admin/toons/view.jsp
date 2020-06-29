@@ -173,7 +173,7 @@ textarea#gdsDes {
 				<h2>작품 조회</h2>
 
 				<form role="form" method="post" autocomplete="off">
-					<input type="hidden" name="n" value="${toons.toonNum}" />
+					<input type="hidden" name="n" value="${toons.toonNum}"/>
 					<div>
 						<label>1차 분류</label> <span class="category1"></span> <label>2차
 							분류</label> <span class="category2">${toons.cateCode}</span>

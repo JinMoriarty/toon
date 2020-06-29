@@ -19,7 +19,7 @@ public interface ToonService {
 		
 	// 작품 소감(댓글) 리스트
 		public List<ReplyListVO> replyList(int toonNum) throws Exception;
-	/*
+	
 	
 	// 작품 소감(댓글) 삭제
 	public void deleteReply(ReplyVO reply) throws Exception;
@@ -27,6 +27,7 @@ public interface ToonService {
 	// 아이디 체크
 	public String idCheck(int repNum) throws Exception;
 
+	/*
 	// 작품 소감(댓글) 수정
 	public void modifyReply(ReplyVO reply) throws Exception;
 
