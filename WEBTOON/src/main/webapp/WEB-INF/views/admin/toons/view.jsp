@@ -197,10 +197,10 @@ textarea#gdsDes {
 					<div class="inputArea">
  						<label for="toonImg">이미지</label>
  						<p>원본 이미지</p>
- 						<img src="${toons.toonImg}" class="oriImg"/>
+ 						<img src= "<c:url value="/img/${toons.toonImg}"/>" class="oriImg"/>
  
  						<p>썸네일</p>
- 						<img src="${toons.toonThumbImg}" class="thumbImg"/>
+ 						<img src= "<c:url value="/img/${toons.toonThumbImg}"/>" class="thumbImg"/>
 					</div>
 					
 					<div class="inputArea">

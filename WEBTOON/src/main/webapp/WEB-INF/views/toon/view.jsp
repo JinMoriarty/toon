@@ -369,7 +369,7 @@ section.replyList div.replyFooter button { font-size:14px; border: 1px solid #99
 
 					<div class="toons">
 						<div class="toonsImg">
-							<img src="${view.toonImg}">
+							<img src="<c:url value="/img/${view.toonImg}"/>"/>
 						</div>
 
 						<div class="goodsInfo">

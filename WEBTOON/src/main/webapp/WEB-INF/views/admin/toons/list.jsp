@@ -3,7 +3,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
-
 <html>
 <head>
 <title>HOJIN Admin</title>
@@ -85,7 +84,8 @@
 				<tbody>
 					<c:forEach items="${list}" var="list">
 						<tr>
-							<td><a href="/admin/toons/view?n=${list.toonNum}"><img src="${list.toonThumbImg}"></a></td>
+							<td><a href="/admin/toons/view?n=${list.toonNum}">
+							<img src= "<c:url value="/img/${list.toonThumbImg}"/>"/></a></td>
 							<td><a href="/admin/toons/view?n=${list.toonNum}">${list.toonName}</a></td>
 							<!--<td>${list.cateCode}</td> -->
 							<td>${list.cateName}</td>

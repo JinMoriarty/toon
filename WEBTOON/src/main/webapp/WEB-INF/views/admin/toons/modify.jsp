@@ -132,6 +132,8 @@ footer#footer ul li {
 			<aside>
 				<%@ include file="../include/aside.jsp"%>
 			</aside>
+			
+			<div id="container_box">
 			<form role="form" method="post" autocomplete="off" enctype="multipart/form-data">
 			
 			<input type="hidden" name="toonNum" value="${toons.toonNum}" />
@@ -139,7 +141,8 @@ footer#footer ul li {
 				<label>1차 분류</label> 
 				<select class="category1">
 					<option value="">전체</option>
-				</select> 
+				</select>
+				 
 				<label>2차 분류</label>
 				 <select class="category2" name= "cateCode">
 					<option value="">전체</option>
@@ -149,6 +152,7 @@ footer#footer ul li {
 					<label for="toonName">제목</label>
 					 <input type="text" id="toonName" name="toonName" value="${toons.toonName}"/>
 				</div>
+				
 				<div class="inputArea">
 					<label for="toonGenre">장르</label>
 					 <input type="text" id="toonGenre" name="toonGenre" value="${toons.toonGenre}"/>
@@ -168,11 +172,12 @@ footer#footer ul li {
 						 CKEDITOR.replace("toonDes", ckeditor_config);
 					</script>
 				</div>
+				
 				<div class="inputArea">
  					<label for="toonImg">이미지</label>
  					<input type="file" id="toonImg" name="file" />
  					<div class="select_img">
- 						<img src="${toons.toonImg}" />
+ 						<img src="<c:url value="/img/${toons.toonImg}"/>"/>
  						<input type="hidden" name="toonImg" value="${toons.toonImg}"/>
  						<input type="hidden" name="toonThumbImg" value="${toons.toonThumbImg}"/>
  					</div>
@@ -188,9 +193,8 @@ footer#footer ul li {
    						  }
   						});
  						</script>
- 						
- 						<%=request.getRealPath("/") %>
-					</div>
+ 					
+				</div>
 				
 				<div class="inputArea">
 					<button type="submit" id="update_Btn" class="btn btn-primary">완료</button>
@@ -204,7 +208,10 @@ footer#footer ul li {
 					</script>
 				</div>
 			</form>
+			
+			</div>
 		</section>
+
 
 		<footer id="footer">
 			<div id="footer_box">

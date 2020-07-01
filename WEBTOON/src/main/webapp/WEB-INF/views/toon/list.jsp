@@ -209,7 +209,8 @@ footer#footer div#footer_box {
 						<c:forEach items="${list}" var="list">
 							<li>
 								<div class="toonsThumb">
-									<img src="${list.toonThumbImg}">
+									<a href="/toon/view?n=${list.toonNum}"><img src="<c:url value="/img/${list.toonThumbImg}"/>"/></a>
+									
 								</div>
 								<div class="toonsName">
 									<a href="/toon/view?n=${list.toonNum}">${list.toonName}</a>

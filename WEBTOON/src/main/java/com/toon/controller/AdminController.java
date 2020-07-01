@@ -65,14 +65,16 @@ public class AdminController {
 		 String ymdPath = UploadFileUtils.calcPath(imgUploadPath);  // 위의 폴더를 기준으로 연월일 폴더를 생성
 		 String fileName = null;  // 기본 경로와 별개로 작성되는 경로 + 파일이름
 		   
+		 System.out.println("업로드패스"+imgUploadPath);
+		 
 		 if(file.getOriginalFilename() != null && file.getOriginalFilename() != "") {
 		  // 파일 인풋박스에 첨부된 파일이 없다면(=첨부된 파일이 이름이 없다면)
 		  
 		  fileName =  UploadFileUtils.fileUpload(imgUploadPath, file.getOriginalFilename(), file.getBytes(), ymdPath);
 
-		  // gdsImg에 원본 파일 경로 + 파일명 저장
+		  // toonImg에 원본 파일 경로 + 파일명 저장
 		  vo.setToonImg(File.separator + "imgUpload" + ymdPath + File.separator + fileName);
-		  // gdsThumbImg에 썸네일 파일 경로 + 썸네일 파일명 저장
+		  // toonThumbImg에 썸네일 파일 경로 + 썸네일 파일명 저장
 		  vo.setToonThumbImg(File.separator + "imgUpload" + ymdPath + File.separator + "s" + File.separator + "s_" + fileName);
 		  
 		 } else {  // 첨부된 파일이 없으면
@@ -196,8 +198,8 @@ public class AdminController {
 		  
 		  String callback = req.getParameter("CKEditorFuncNum");
 		  printWriter = res.getWriter();
-		  String fileUrl = "/ckUpload/" + uid + "_" + fileName; // 작성화면
-		  
+		  String fileUrl = "/img" + "/ckUpload/" + uid + "_" + fileName; // 작성화면
+		  System.out.println("URL 경로"+ fileUrl);
 		  // 업로드시 메시지 출력
 		  /* 이 형식은 업데이트 되면서 제이슨 형태로 리턴해야하는걸로 바뀜
 		   * printWriter.println("<script type='text/javascript'>"
