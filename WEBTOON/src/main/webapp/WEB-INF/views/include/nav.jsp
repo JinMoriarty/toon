@@ -22,7 +22,7 @@
 		${member.userName}님 환영합니다.
 	</li>
 	<li>
-		<a href="/shop/cartList">웹툰 리스트</a>
+		<a href="/toon/markList">책갈피</a>
 	</li>
 	<li>
 		<a href="/shop/orderList">내 페이지</a>

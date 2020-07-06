@@ -381,6 +381,37 @@ section.replyList div.replyFooter button { font-size:14px; border: 1px solid #99
 
 							<p class="toonGenre">
 								<span>장르 </span>${view.toonGenre}</p>
+						
+						<p class="addMark">
+							<button type="button" class="addMark_btn">책갈피</button>
+							<script>
+								$(".addMark_btn").click(function(){
+									
+									var toonNum = $("#toonNum").val();
+									
+									var data = {
+											toonNum : toonNum
+											};
+									
+									$.ajax({
+										url : "/toon/view/addMark",
+										type : "post",
+										data : data,
+										success : function(result){
+											
+											if(result == 1) {
+												alert("책갈피 성공");
+											} else {
+												alert("회원만 사용할 수 있습니다.")
+											}
+										},
+										error : function(){
+											alert("책갈피 실패");
+										}
+									});
+								});
+							</script>
+						</p>
 						</div>
 						<div class="toonDes">${view.toonDes}</div>
 					</div>

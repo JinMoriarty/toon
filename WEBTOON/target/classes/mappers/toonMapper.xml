@@ -59,5 +59,31 @@ where repNum = #{repNum}
 and userId = #{userId}
 </update>
 
+<!-- 책갈피 -->
+<insert id="addMark">
+insert into tbl_mark (markNum, userId, toonNum)
+values (tbl_mark_seq.nextval, #{userId}, #{toonNum})
+</insert>
+
+<!-- 책갈피 목록 -->
+<select id="markList" resultType="com.toon.domain.MarkListVO">
+select
+row_number() over(order by c.markNum desc) as num,
+c.markNum, c.userId, c.toonNum, c.addDate,
+t.toonName, t.toonThumbImg
+from tbl_mark c
+inner join tbl_toon t
+on c.toonNum = t.toonNum
+where c.userId =#{userId}
+</select>
+
+<!-- 책갈피 삭제 -->
+<delete id="deleteMark">
+delete tbl_mark
+where markNum = #{markNum}
+and userId = #{userId}
+</delete>
+
+
 
 </mapper>

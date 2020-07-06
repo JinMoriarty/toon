@@ -6,6 +6,7 @@ import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
 
+import com.toon.domain.MarkListVO;
 import com.toon.domain.ReplyListVO;
 import com.toon.domain.ReplyVO;
 import com.toon.domain.ToonsViewVO;
@@ -71,19 +72,20 @@ public class ToonServiceImpl implements ToonService {
 		dao.modifyReply(reply);
 	}
 
-	/*
-	// 카트 담기
+	
+	// 책갈피 담기
 	@Override
-	public void addCart(CartListVO cart) throws Exception {
-		dao.addCart(cart);
-	}
-
-	// 카트 리스트
-	@Override
-	public List<CartListVO> cartList(String userId) throws Exception {
-		return dao.cartList(userId);
+	public void addMark(MarkListVO mark) throws Exception {
+		dao.addMark(mark);
 	}
 	
+	// 책갈피 리스트
+	@Override
+	public List<MarkListVO> markList(String userId) throws Exception {
+		return dao.markList(userId);
+	}
+	
+	/*
 	// 카트 삭제
 	@Override
 	public void deleteCart(CartVO cart) throws Exception {

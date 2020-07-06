@@ -2,6 +2,8 @@ package com.toon.persistence;
 
 import java.util.List;
 
+import com.toon.domain.MarkListVO;
+import com.toon.domain.MarkVO;
 import com.toon.domain.ReplyListVO;
 import com.toon.domain.ReplyVO;
 import com.toon.domain.ToonsViewVO;
@@ -33,13 +35,12 @@ public interface ToonDAO {
 	// 작품 소감(댓글) 수정
 	public void modifyReply(ReplyVO reply) throws Exception;
 	
-	/*
-	// 카트 담기
-	public void addCart(CartListVO cart) throws Exception;
+	// 책갈피 담기
+	public void addMark(MarkListVO mark) throws Exception;
 	
-	// 카트 리스트
-	public List<CartListVO> cartList(String userId) throws Exception;
-
+	// 책갈피 리스트
+	public List<MarkListVO> markList(String userId) throws Exception;
+	/*
 	// 카트 삭제
 	public void deleteCart(CartVO cart) throws Exception;
 	

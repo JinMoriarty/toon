@@ -8,6 +8,8 @@ import javax.inject.Inject;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
+import com.toon.domain.MarkListVO;
+import com.toon.domain.MarkVO;
 import com.toon.domain.ReplyListVO;
 import com.toon.domain.ReplyVO;
 import com.toon.domain.ToonsViewVO;
@@ -79,19 +81,20 @@ public class ToonDAOImpl implements ToonDAO {
 		sql.update(namespace + ".modifyReply", reply);
 	}
 
+	
+	// 책갈피 담기
+	@Override
+	public void addMark(MarkListVO mark) throws Exception {
+		sql.insert(namespace + ".addMark", mark);
+	}
+
+	// 책갈피 리스트
+	@Override
+	public List<MarkListVO> markList(String userId) throws Exception {
+		return sql.selectList(namespace + ".markList", userId);
+	}
+	
 	/*
-	// 카트 담기
-	@Override
-	public void addCart(CartListVO cart) throws Exception {
-		sql.insert(namespace + ".addCart", cart);
-	}
-
-	// 카트 리스트
-	@Override
-	public List<CartListVO> cartList(String userId) throws Exception {
-		return sql.selectList(namespace + ".cartList", userId);
-	}
-
 	// 카트 삭제
 	@Override
 	public void deleteCart(CartVO cart) throws Exception {

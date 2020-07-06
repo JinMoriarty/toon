@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.toon.domain.MarkListVO;
 import com.toon.domain.MemberVO;
 import com.toon.domain.ReplyListVO;
 import com.toon.domain.ReplyVO;
@@ -91,7 +92,7 @@ public class ToonController {
 	}
 	
 	
-	// 상품 소감(댓글) 삭제
+	// 작품 소감(댓글) 삭제
 	@ResponseBody
 	@RequestMapping(value = "/view/deleteReply", method = RequestMethod.POST)
 	public int getReplyList(ReplyVO reply,  HttpSession session) throws Exception {
@@ -120,7 +121,7 @@ public class ToonController {
 		return result;	
 		}
 		
-	// 상품 소감(댓글) 수정
+	// 작품 소감(댓글) 수정
 	@ResponseBody
 	@RequestMapping(value = "/view/modifyReply", method = RequestMethod.POST)
 	public int modifyReply(ReplyVO reply, HttpSession session) throws Exception {
@@ -142,7 +143,36 @@ public class ToonController {
 			
 	}	
 	
-	
+	// 책갈피
+	@ResponseBody
+	@RequestMapping(value = "/view/addMark", method = RequestMethod.POST)
+	public int addMark(MarkListVO mark, HttpSession session) throws Exception {
+			
+		int result = 0;
+			
+		MemberVO member = (MemberVO)session.getAttribute("member");
+			
+		if(member != null) {
+			mark.setUserId(member.getUserId());
+			service.addMark(mark);
+			result = 1;
+		}
+		
+		return result;
+	}
+			
+	// 책갈피 목록
+	@RequestMapping(value = "/markList", method = RequestMethod.GET)
+	public void getMarkList(HttpSession session, Model model) throws Exception {
+		logger.info("get cart list");
+		
+		MemberVO member = (MemberVO)session.getAttribute("member");
+		String userId = member.getUserId();
+		
+		List<MarkListVO> markList = service.markList(userId);
+		
+		model.addAttribute("markList", markList);
+	}
 	
 	
 }
