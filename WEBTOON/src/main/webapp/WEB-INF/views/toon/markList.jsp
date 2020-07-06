@@ -308,20 +308,16 @@ section#content div.toonInfo .delete button {
 					<ul>
 						<li>
 							<div class="allCheck">
-								<input type="checkbox" name="allCheck" id="allCheck" /><label
-									for="allCheck">모두 선택</label>
+								<input type="checkbox" name="allCheck" id="allCheck" /><labelfor="allCheck">모두 선택</label>
 
 								<script>
 									$("#allCheck").click(
 											function() {
-												var chk = $("#allCheck").prop(
-														"checked");
+												var chk = $("#allCheck").prop("checked");
 												if (chk) {
-													$(".chBox").prop("checked",
-															true);
+													$(".chBox").prop("checked", true);
 												} else {
-													$(".chBox").prop("checked",
-															false);
+													$(".chBox").prop("checked", false);
 												}
 											});
 								</script>
@@ -331,38 +327,30 @@ section#content div.toonInfo .delete button {
 								<button type="button" class="selectDelete_btn">선택 삭제</button>
 
 								<script>
-									$(".selectDelete_btn")
-											.click(
-													function() {
+									$(".selectDelete_btn").click(function() {
 														var confirm_val = confirm("정말 삭제하시겠습니까?");
 
 														if (confirm_val) {
 															var checkArr = new Array();
 
-															$(
-																	"input[class='chBox']:checked")
-																	.each(
-																			function() {
-																				checkArr
-																						.push($(
-																								this)
-																								.attr(
-																										"data-markNum"));
+															$("input[class='chBox']:checked").each(function() {
+																				checkArr.push($(this).attr("data-markNum"));
 																			});
 
-															$
-																	.ajax({
-																		url : "/toon/deletemark",
-																		type : "post",
-																		data : {
-																			chbox : checkArr
-																		},
-																		success : function() {
-																			location.href = "/toon/markList";
-																		}
-																	});
-														}
-													});
+															$.ajax({
+																 url : "/toon/deleteMark",
+																 type : "post",
+																 data : { chbox : checkArr },
+																 success : function(result){
+																  if(result == 1) {          
+																   location.href = "/toon/markList";
+																  } else {
+																   alert("삭제 실패");
+																  }
+																 }
+																});
+															}
+														});
 								</script>
 							</div>
 
@@ -370,13 +358,10 @@ section#content div.toonInfo .delete button {
 						<c:forEach items="${markList}" var="markList">
 							<li>
 								<div class="checkBox">
-									<input type="checkbox" name="chBox" class="chBox"
-										data-markNum="${markList.markNum}" />
+									<input type="checkbox" name="chBox" class="chBox" data-markNum="${markList.markNum}" />
 									<script>
-										$(".chBox").click(
-												function() {
-													$("#allCheck").prop(
-															"checked", false);
+										$(".chBox").click(function() {
+													$("#allCheck").prop("checked", false);
 												});
 									</script>
 								</div>
@@ -389,8 +374,32 @@ section#content div.toonInfo .delete button {
 										<span>제목 : </span>${markList.toonName}<br />
 									</p>
 									<div class="delete">
-										<button type="button" class="delete_btn"
-											data-markNum="${markList.markNum}">삭제</button>
+										<button type="button" class="delete_${markList.markNum}_btn" data-markNum="${markList.markNum}">삭제</button>
+											
+										<script>
+										$(".delete_${markList.markNum}_btn").click(function(){
+											var confirm_val = confirm("정말 삭제하시겠습니까?");
+											
+											if(confirm_val) {
+												var checkArr = new Array();
+												
+												checkArr.push($(this).attr("data-markNum"));
+              
+												$.ajax({
+													url : "/toon/deleteMark",
+													type : "post",
+													data : { chbox : checkArr },
+													success : function(result){
+														if(result == 1) {            
+															location.href = "/toon/markList";
+														} else {
+															alert("삭제 실패");
+															}
+														}
+													});
+												} 
+											});
+										</script>
 									</div>
 								</div>
 

@@ -7,6 +7,7 @@ import javax.inject.Inject;
 import org.springframework.stereotype.Service;
 
 import com.toon.domain.MarkListVO;
+import com.toon.domain.MarkVO;
 import com.toon.domain.ReplyListVO;
 import com.toon.domain.ReplyVO;
 import com.toon.domain.ToonsViewVO;
@@ -85,13 +86,12 @@ public class ToonServiceImpl implements ToonService {
 		return dao.markList(userId);
 	}
 	
-	/*
-	// 카트 삭제
+	// 책갈피 삭제
 	@Override
-	public void deleteCart(CartVO cart) throws Exception {
-		dao.deleteCart(cart);
+	public void deleteMark(MarkVO mark) throws Exception {
+		dao.deleteMark(mark);
 	}
-	
+	/*
 	// 주문 정보
 	@Override
 	public void orderInfo(OrderVO order) throws Exception {

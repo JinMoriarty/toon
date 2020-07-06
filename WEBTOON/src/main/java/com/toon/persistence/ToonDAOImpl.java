@@ -94,13 +94,13 @@ public class ToonDAOImpl implements ToonDAO {
 		return sql.selectList(namespace + ".markList", userId);
 	}
 	
-	/*
-	// 카트 삭제
+	// 책갈피 삭제
 	@Override
-	public void deleteCart(CartVO cart) throws Exception {
-		sql.delete(namespace + ".deleteCart", cart);
+	public void deleteMark(MarkVO mark) throws Exception {
+		sql.delete(namespace + ".deleteMark", mark);
 	}
 	
+	/*
 	// 주문 정보
 	@Override
 	public void orderInfo(OrderVO order) throws Exception {

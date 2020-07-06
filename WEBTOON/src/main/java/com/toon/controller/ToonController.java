@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.toon.domain.MarkListVO;
+import com.toon.domain.MarkVO;
 import com.toon.domain.MemberVO;
 import com.toon.domain.ReplyListVO;
 import com.toon.domain.ReplyVO;
@@ -174,5 +175,32 @@ public class ToonController {
 		model.addAttribute("markList", markList);
 	}
 	
+	
+	// 책갈피 삭제
+	@ResponseBody
+	@RequestMapping(value = "/deleteMark", method = RequestMethod.POST)
+	public int deleteMark(HttpSession session,
+	     @RequestParam(value = "chbox[]") List<String> chArr, MarkVO mark) throws Exception {
+	 logger.info("delete mark");
+	 
+	 MemberVO member = (MemberVO)session.getAttribute("member");
+	 String userId = member.getUserId();
+	 
+	 int result = 0;
+	 int markNum = 0;
+	 
+	 
+	 if(member != null) {
+	  mark.setUserId(userId);
+	  
+	  for(String i : chArr) {   
+	   markNum = Integer.parseInt(i);
+	   mark.setMarkNum(markNum);
+	   service.deleteMark(mark);
+	  }   
+	  result = 1;
+	 }  
+	 return result;  
+	}	
 	
 }

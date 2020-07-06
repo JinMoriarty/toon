@@ -40,10 +40,11 @@ public interface ToonDAO {
 	
 	// 책갈피 리스트
 	public List<MarkListVO> markList(String userId) throws Exception;
-	/*
-	// 카트 삭제
-	public void deleteCart(CartVO cart) throws Exception;
 	
+	// 책갈피 삭제
+	public void deleteMark(MarkVO mark) throws Exception;
+	
+	/*
 	// 주문 정보
 	public void orderInfo(OrderVO order) throws Exception;
 	
