@@ -48,7 +48,7 @@ public interface ToonDAO {
 	public void addView(int view) throws Exception;
 	
 	//추천수 증가
-	public void addGood(int good) throws Exception;
+	public void addGood(int toonNum) throws Exception;
 	
 	/*
 	// 주문 정보

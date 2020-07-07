@@ -415,33 +415,43 @@ section.replyList div.replyFooter button { font-size:14px; border: 1px solid #99
 						</div>
 						<div class="toonDes">${view.toonDes}</div>
 						
-						
-						<div id="addGood">
-						<!--브라우저상에서 추천기능구현 -->
-							<script src="${contextPath }/resources/js/getXhrObj.js"></script>
-							<script src="${contextPath }/resources/js/like_hate_update.js"></script>
-							<script src="${contextPath }/resources/js/modal_btn.js"></script>
+						<p class="addGood">
+						<div class="toonGood">${view.toonGood}</div>
+							<c:if test = "${member != null}">
+								<button type = "button" class = "addGood_btn">추천하기</button>
+							</c:if>
 							<script>
-							//	본문 추천, 비추천 변수선언
-							var lcnt = '<c:out value="${artcl.likeCnt }"/>';
-							var lcnt2 = '<c:out value="${artcl.likeCnt }"/>';
+							$(".addGood_btn").click(function(){
+								
+								var toonNum = $("#toonNum").val();
+								
+								var data = {
+										toonNum : toonNum
+										};
+								
+								$.ajax({
+									url : "/toon/view/addGood",
+									type : "post",
+									data : data,
+									success : function(){
+										
+										
+											alert("추천 하였습니다.");
+											history.go(0);
+										
+									}
+								});
+							});
+							</script>
 							
-							var alreadyLikeClick = false;
-							
-							var likeBtn = document.getElementById("likeBtn");
-							
-	
-							//본문 추천, 비추천 ajax 기능 구현
-							function updateLikeAjax(){
-							    xhr.onreadystatechange = function(){
-							        if(xhr.readyState===4 && xhr.status===200){
-										console.log('좋아요 추천...');
-							        }
-							    }
-							    xhr.open("put", "${contextPath}/commons/like/${artcl.bno}", "true");
-							    xhr.send();
-							}
-						</div>
+						</p>
+						
+						
+						
+						
+						
+						
+		
 						
 							</section>
 
@@ -673,7 +683,7 @@ $(".modal_modify_btn").click(function(){
 					replyList();
 					$(".replyModal").fadeOut(200);
 				} else {
-					alert("작성자 본인만 할 수 있습니다.");							
+					alert("작성자 본인만 할 수 있습니다.")						
 				}
 			},
 			error : function(){

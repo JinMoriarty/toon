@@ -7,8 +7,11 @@ import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -56,7 +59,6 @@ public class ToonController {
 		ToonsViewVO view = service.toonsView(toonNum);
 		 model.addAttribute("view", view);
 		 
-		 System.out.println("조회수 : "+toonView);
 		 
 		 /*List<ReplyListVO> reply = service.replyList(toonNum);
 		 model.addAttribute("reply", reply);*/
@@ -211,15 +213,21 @@ public class ToonController {
 	 return result;  
 	}	
 	
-	//게시물 추천 관련 메소드
-    @RequestMapping("/toon/addGood")
-    public String addGood (@RequestParam int toonNum) throws Exception {
+	
+	
+	// 추천
+	@ResponseBody
+    @RequestMapping("/view/addGood")
+    public void addGood (@RequestParam int toonNum) throws Exception {
         
-        service.addGood(toonNum);
-    
-        return "forward:/toon/view"; //페이지값을 그대로 넘겨받기위해서 포워딩을 사용해 컨트롤러로 리턴시킨다.
+       service.addGood(toonNum);
+       
+       System.out.println("추천 증가");
     }
-    
+
+	
+
+	
 
 	
 }

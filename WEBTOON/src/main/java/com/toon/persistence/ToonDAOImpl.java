@@ -108,8 +108,8 @@ public class ToonDAOImpl implements ToonDAO {
 	
 	//추천수 증가
 	@Override
-	public void addGood(int good) throws Exception {
-		sql.update(namespace + ".addGood", good);
+	public void addGood(int toonNum) throws Exception {
+		sql.update(namespace + ".addGood", toonNum);
 	}
 	
 	/*

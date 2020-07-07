@@ -100,8 +100,8 @@ public class ToonServiceImpl implements ToonService {
 	
 	//추천수 증가
 	@Override
-	public void addGood(int good) throws Exception {
-		dao.addGood(good);
+	public void addGood(int toonNum) throws Exception {
+		dao.addGood(toonNum);
 	}
 	
 	/*
