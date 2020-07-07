@@ -91,6 +91,12 @@ public class ToonServiceImpl implements ToonService {
 	public void deleteMark(MarkVO mark) throws Exception {
 		dao.deleteMark(mark);
 	}
+	
+	//조회수 증가
+	@Override
+	public void addView(int view) throws Exception {
+		dao.addView(view);
+	}
 	/*
 	// 주문 정보
 	@Override

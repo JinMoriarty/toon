@@ -41,7 +41,10 @@ public interface ToonService {
 	public List<MarkListVO> markList(String userId) throws Exception;
 
 	// 책갈피 삭제
-	public void deleteMark(MarkVO mark) throws Exception;	
+	public void deleteMark(MarkVO mark) throws Exception;
+	
+	//조회수 증가
+	public void addView(int view) throws Exception;
 	/*
 	// 주문 정보
 	public void orderInfo(OrderVO order) throws Exception;

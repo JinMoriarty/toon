@@ -47,8 +47,16 @@ public class ToonController {
 	public void getView(@RequestParam("n")int toonNum, Model model) throws Exception{
 		logger.info("get view");
 		
+		int toonView = 0;
+		
+		service.addView(toonNum);
+		
+		model.addAttribute("addView",toonView);
+		
 		ToonsViewVO view = service.toonsView(toonNum);
 		 model.addAttribute("view", view);
+		 
+		 System.out.println("조회수 : "+toonView);
 		 
 		 /*List<ReplyListVO> reply = service.replyList(toonNum);
 		 model.addAttribute("reply", reply);*/
@@ -202,5 +210,7 @@ public class ToonController {
 	 }  
 	 return result;  
 	}	
+	
+	
 	
 }

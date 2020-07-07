@@ -85,5 +85,14 @@ and userId = #{userId}
 </delete>
 
 
+<!-- 조회수 증가 -->
+<update id="addView" parameterType="int"> 
+update tbl_toon set 
+toonView = toonView+1 
+where toonNum=#{toonNum}
+</update>
+
+
+
 
 </mapper>

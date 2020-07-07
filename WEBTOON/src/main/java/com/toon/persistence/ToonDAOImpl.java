@@ -100,6 +100,12 @@ public class ToonDAOImpl implements ToonDAO {
 		sql.delete(namespace + ".deleteMark", mark);
 	}
 	
+	//조회수 증가
+	@Override
+	public void addView(int view) throws Exception {
+		sql.update(namespace + ".addView", view);
+	}
+	
 	/*
 	// 주문 정보
 	@Override
