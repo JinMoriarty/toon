@@ -97,6 +97,13 @@ public class ToonServiceImpl implements ToonService {
 	public void addView(int view) throws Exception {
 		dao.addView(view);
 	}
+	
+	//추천수 증가
+	@Override
+	public void addGood(int good) throws Exception {
+		dao.addGood(good);
+	}
+	
 	/*
 	// 주문 정보
 	@Override

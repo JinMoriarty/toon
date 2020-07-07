@@ -106,6 +106,12 @@ public class ToonDAOImpl implements ToonDAO {
 		sql.update(namespace + ".addView", view);
 	}
 	
+	//추천수 증가
+	@Override
+	public void addGood(int good) throws Exception {
+		sql.update(namespace + ".addGood", good);
+	}
+	
 	/*
 	// 주문 정보
 	@Override

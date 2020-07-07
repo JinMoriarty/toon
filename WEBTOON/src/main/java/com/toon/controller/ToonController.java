@@ -211,6 +211,15 @@ public class ToonController {
 	 return result;  
 	}	
 	
-	
+	//게시물 추천 관련 메소드
+    @RequestMapping("/toon/addGood")
+    public String addGood (@RequestParam int toonNum) throws Exception {
+        
+        service.addGood(toonNum);
+    
+        return "forward:/toon/view"; //페이지값을 그대로 넘겨받기위해서 포워딩을 사용해 컨트롤러로 리턴시킨다.
+    }
+    
+
 	
 }

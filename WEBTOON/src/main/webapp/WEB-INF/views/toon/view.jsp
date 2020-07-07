@@ -20,7 +20,7 @@ function replyList() {
 								var repDate = new Date(this.repDate);
 								repDate = repDate.toLocaleDateString("ko-US")
 
-								str += "<li data-repNum='" + this.repNum + "'>" //"<li data-gdsNum='" + this.gdsNum + "'>"
+								str += "<li data-repNum='" + this.repNum + "'>" 
 								+ "<div class='userInfo'>"
 								+ "<span class='userName'>" + this.userName + "</span>"
 								+ "<span class='date'>" +repDate + "</span>"
@@ -414,6 +414,89 @@ section.replyList div.replyFooter button { font-size:14px; border: 1px solid #99
 						</p>
 						</div>
 						<div class="toonDes">${view.toonDes}</div>
+						
+						
+						<div id="addGood">
+						<!--브라우저상에서 추천기능구현 -->
+							<script src="${contextPath }/resources/js/getXhrObj.js"></script>
+							<script src="${contextPath }/resources/js/like_hate_update.js"></script>
+							<script src="${contextPath }/resources/js/modal_btn.js"></script>
+							<script>
+							//	본문 추천, 비추천 변수선언
+							var lcnt = '<c:out value="${artcl.likeCnt }"/>';
+							var lcnt2 = '<c:out value="${artcl.likeCnt }"/>';
+							
+							var alreadyLikeClick = false;
+							
+							var likeBtn = document.getElementById("likeBtn");
+							
+	
+							//본문 추천, 비추천 ajax 기능 구현
+							function updateLikeAjax(){
+							    xhr.onreadystatechange = function(){
+							        if(xhr.readyState===4 && xhr.status===200){
+										console.log('좋아요 추천...');
+							        }
+							    }
+							    xhr.open("put", "${contextPath}/commons/like/${artcl.bno}", "true");
+							    xhr.send();
+							}
+						</div>
+						
+							</section>
+
+							<script>
+						
+							$(document).on("click", ".modify", function(){
+								//$(".replyModal").attr("style", "display:block;");
+								$(".replyModal").fadeIn(200);
+								
+								var repNum = $(this).attr("data-repNum");
+								var repCon = $(this).parent().parent().children(".replyContent").text();
+								
+								$(".modal_repCon").val(repCon);
+								$(".modal_modify_btn").attr("data-repNum", repNum);
+								
+							});
+													
+							// 스크립트로 인해 생성된 HTML의 이벤트는 .click() 메서드를 사용할 수 없음
+							$(document).on("click", ".delete", function(){
+								
+								// 사용자에게 삭제 여부를 확인
+								var deletConfirm = confirm("정말로 삭제하시겠습니까?"); 
+								
+								if(deletConfirm) {
+								
+									var data = {repNum : $(this).attr("data-repNum")};  // ReplyVO 형태로 데이터 생성
+									
+									$.ajax({
+										url : "/toon/view/deleteReply",
+										type : "post",
+										data : data,
+										success : function(result){
+											
+											// result의 값에 따라 동작
+											if(result == 1) {
+												replyList();  // 리스트 새로고침
+											} else {
+												alert("작성자 본인만 할 수 있습니다.")  // 본인이 아닌 경우										
+											}
+										},
+										error : function(){
+											// 로그인하지 않아서 에러가 발생한 경우
+											alert("로그인하셔야합니다.")
+											console.log(result);
+										}
+									});
+								}
+							});
+						
+						</script>
+
+							
+						</section>
+					</div>
+						
 					</div>
 
 					<div id="reply">

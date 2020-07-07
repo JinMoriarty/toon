@@ -92,6 +92,13 @@ toonView = toonView+1
 where toonNum=#{toonNum}
 </update>
 
+<!-- 추천수 증가 -->
+<update id="addGood" parameterType="int"> 
+update tbl_toon set 
+toonGood = toonGood+1 
+where toonNum=#{toonNum}
+</update>
+
 
 
 
